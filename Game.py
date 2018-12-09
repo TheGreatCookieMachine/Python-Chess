@@ -32,5 +32,21 @@ class Game():
             try:
                 return [int(baseLocation[1]) - 1, ord(baseLocation[0].lower()) - 97]
             except:
-                print("Error: Invalid Input")
-        return [-1, -1] # Dummy output for now until I know how I work with the returned information
+                pass
+        return [-1, -1] # [-1, -1] is used as a way to tell the rest of the code that there was an invalid input, since [-1, -1] is not achievable through a valid input
+    
+    def playerTurn(self):
+        while True:
+            move = input("Please enter your turn: ")
+            try:
+                start = self.getLocation(move[:2])
+                end = self.getLocation(move[2:4])
+                # If the user had an invalid input, which does not otherwise cause an error, raise an error
+                if start[0] == -1 or end[0] == -1 or start == end:
+                    raise BaseException
+                # Otherwise, begin modifications to the board itself (Due to the first line checking both the start and end, errors will occur before destructive changes to the board are made)
+                self.board[end[0]][end[1]] = self.board[start[0]][start[1]]
+                self.board[start[0]][start[1]] = " "
+                break
+            except:
+                print("Error: Invalid Move")
