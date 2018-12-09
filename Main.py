@@ -13,3 +13,5 @@ class Main():
 # Here for testing purposes, will be changed and moved into Main() later
 session = Game.Game()
 session.drawBoard()
+while True:
+    print(session.getLocation(input()))
