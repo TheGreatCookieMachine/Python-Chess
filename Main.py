@@ -14,4 +14,4 @@ class Main():
 session = Game.Game()
 while True:
     session.drawBoard()
-    session.playerTurn()
+    print(session.isValidInput(input()))

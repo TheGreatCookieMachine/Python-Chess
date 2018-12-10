@@ -17,6 +17,7 @@ class Game():
                       Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black")],
                       [Pieces.Rook("black"), Pieces.Knight("black"), Pieces.Bishop("black"), Pieces.King("black"),
                       Pieces.Queen("black"), Pieces.Bishop("black"), Pieces.Knight("black"), Pieces.Rook("black")]]
+        self.pieces = {"r": "Rook", "n": "Knight", "b": "Bishop", "q": "Queen", "k": "King"}
     
     def drawBoard(self):
         print("---------------------------------")
@@ -34,6 +35,62 @@ class Game():
             except:
                 pass
         return [-1, -1] # [-1, -1] is used as a way to tell the rest of the code that there was an invalid input, since [-1, -1] is not achievable through a valid input
+    
+    def isValidInput(self, userInput):
+        if ord(userInput[0].lower()) > 96 and ord(userInput[0].lower()) < 105:
+            try:
+                location = self.getLocation(userInput[2:4])
+                if self.board[location[0]][location[1]] != " ":
+                    return False
+                location += self.getLocation(userInput[0:2])
+                if not self.board[location[2]][location[3]].title == "Pawn":
+                    return False
+            except:
+                return False
+            else:
+                if not -1 in location:
+                    return True
+        elif userInput[0].lower() == "x":
+            try:
+                location = self.getLocation(userInput[3:5])
+                if self.board[location[0]][location[1]] == " ":
+                    return False
+                location += self.getLocation(userInput[1:3])
+                if not self.board[location[2]][location[3]].title == "Pawn":
+                    return False
+            except:
+                return False
+            else:
+                if not -1 in location:
+                    return True
+        elif userInput[0].lower() in self.pieces:
+            if userInput[1].lower() == "x":
+                try:
+                    location = self.getLocation(userInput[4:6])
+                    if self.board[location[0]][location[1]] == " ":
+                        return False
+                    location += self.getLocation(userInput[2:4])
+                    if not self.board[location[2]][location[3]].title == self.pieces[userInput[0].lower()]:
+                        return False
+                except:
+                    return False
+                else:
+                    if not -1 in location:
+                        return True
+            else:
+                try:
+                    location = self.getLocation(userInput[3:5])
+                    if self.board[location[0]][location[1]] != " ":
+                        return False
+                    location += self.getLocation(userInput[1:3])
+                    if not self.board[location[2]][location[3]].title == self.pieces[userInput[0].lower()]:
+                        return False
+                except:
+                    return False
+                else:
+                    if not -1 in location:
+                        return True
+        return False
     
     def playerTurn(self):
         while True:
