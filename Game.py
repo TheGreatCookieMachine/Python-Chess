@@ -37,59 +37,31 @@ class Game():
         return [-1, -1] # [-1, -1] is used as a way to tell the rest of the code that there was an invalid input, since [-1, -1] is not achievable through a valid input
     
     def isValidInput(self, userInput):
+        def mainCode(midNum, targetPiece, isSpace): # Number at the middle, the piece that should be at the start, if there should be a space at the end
+            try:
+                location = self.getLocation(userInput[midNum:midNum + 2])
+                if isSpace and self.board[location[0]][location[1]] != " ":
+                    return False
+                elif not isSpace and self.board[location[0]][location[1]] == " ":
+                    return False
+                location += self.getLocation(userInput[midNum - 2:midNum]) # Adds the start onto the end, meaning the list is end then beginning of move
+                if not self.board[location[2]][location[3]].title == targetPiece:
+                    return False
+            except:
+                return False
+            else:
+                if not -1 in location: # Checks to make sure the valid input has a valid location assosiated with it
+                    return True
+        
         if ord(userInput[0].lower()) > 96 and ord(userInput[0].lower()) < 105:
-            try:
-                location = self.getLocation(userInput[2:4])
-                if self.board[location[0]][location[1]] != " ":
-                    return False
-                location += self.getLocation(userInput[0:2])
-                if not self.board[location[2]][location[3]].title == "Pawn":
-                    return False
-            except:
-                return False
-            else:
-                if not -1 in location:
-                    return True
+            return mainCode(2, "Pawn", True)
         elif userInput[0].lower() == "x":
-            try:
-                location = self.getLocation(userInput[3:5])
-                if self.board[location[0]][location[1]] == " ":
-                    return False
-                location += self.getLocation(userInput[1:3])
-                if not self.board[location[2]][location[3]].title == "Pawn":
-                    return False
-            except:
-                return False
-            else:
-                if not -1 in location:
-                    return True
+            return mainCode(3, "Pawn", False)
         elif userInput[0].lower() in self.pieces:
             if userInput[1].lower() == "x":
-                try:
-                    location = self.getLocation(userInput[4:6])
-                    if self.board[location[0]][location[1]] == " ":
-                        return False
-                    location += self.getLocation(userInput[2:4])
-                    if not self.board[location[2]][location[3]].title == self.pieces[userInput[0].lower()]:
-                        return False
-                except:
-                    return False
-                else:
-                    if not -1 in location:
-                        return True
+                return mainCode(4, self.pieces[userInput[0].lower()], False)
             else:
-                try:
-                    location = self.getLocation(userInput[3:5])
-                    if self.board[location[0]][location[1]] != " ":
-                        return False
-                    location += self.getLocation(userInput[1:3])
-                    if not self.board[location[2]][location[3]].title == self.pieces[userInput[0].lower()]:
-                        return False
-                except:
-                    return False
-                else:
-                    if not -1 in location:
-                        return True
+                return mainCode(3, self.pieces[userInput[0].lower()], True)
         return False
     
     def playerTurn(self):
