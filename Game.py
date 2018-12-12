@@ -46,7 +46,8 @@ class Game():
                 elif not isSpace and self.board[location[0]][location[1]] == " ":
                     return [False, -1, -1, -1, -1]
                 location += self.getLocation(userInput[midNum - 2:midNum]) # Adds the start onto the end, meaning the list is end then beginning of move
-                if not self.board[location[2]][location[3]].title == targetPiece:
+                if (not self.board[location[2]][location[3]].title == targetPiece or
+                    self.board[location[0]][location[1]] == self.board[location[2]][location[3]]):
                     return [False, -1, -1, -1, -1]
             except:
                 return [False, -1, -1, -1, -1]
