@@ -27,9 +27,9 @@ class Pawn(Piece):
         if board[row + 1][column] == " ":
             moves.append([row + 1, column])
         # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " ":
+        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
             moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " ":
+        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
             moves.append([row + 1, column + 1])
         return moves
 
@@ -45,9 +45,9 @@ class Rook(Piece):
         if board[row + 1][column] == " ":
             moves.append([row + 1, column])
         # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " ":
+        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
             moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " ":
+        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
             moves.append([row + 1, column + 1])
         return moves
 
@@ -63,9 +63,9 @@ class Knight(Piece):
         if board[row + 1][column] == " ":
             moves.append([row + 1, column])
         # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " ":
+        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
             moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " ":
+        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
             moves.append([row + 1, column + 1])
         return moves
 
@@ -81,9 +81,9 @@ class Bishop(Piece):
         if board[row + 1][column] == " ":
             moves.append([row + 1, column])
         # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " ":
+        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
             moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " ":
+        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
             moves.append([row + 1, column + 1])
         return moves
 
@@ -99,9 +99,9 @@ class King(Piece):
         if board[row + 1][column] == " ":
             moves.append([row + 1, column])
         # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " ":
+        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
             moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " ":
+        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
             moves.append([row + 1, column + 1])
         return moves
 
@@ -117,8 +117,8 @@ class Queen(Piece):
         if board[row + 1][column] == " ":
             moves.append([row + 1, column])
         # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " ":
+        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
             moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " ":
+        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
             moves.append([row + 1, column + 1])
         return moves
