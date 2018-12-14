@@ -52,8 +52,10 @@ class Game():
             except:
                 return [False, -1, -1, -1, -1]
             else:
-                if not -1 in location: # Checks to make sure the valid input has a valid location assosiated with it
+                if (not -1 in location and  # Checks to make sure the valid input has a valid location assosiated with it
+                    location[0:2] in self.board[location[2]][location[3]].availableMoves(location[2], location[3], self.board)): # Checks if the end spot is a valid place for the piece to move
                     return [True] + location # True, ending coordinate 1, ending coordinate 2, starting coordinate 1, starting coordinate 2
+                return [False, -1, -1, -1, -1] 
         
         if ord(userInput[0].lower()) > 96 and ord(userInput[0].lower()) < 105:
             return mainCode(2, "Pawn", True)
