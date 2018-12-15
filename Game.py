@@ -37,6 +37,7 @@ class Game():
         return [-1, -1] # [-1, -1] is used as a way to tell the rest of the code that there was an invalid input, since [-1, -1] is not achievable through a valid input
     
     # Multi-purpose function, returns if the input is valid, and if so it returns the starting and ending location of the input
+    # This entire thing will be redone eventually since I am a moron and didnt realize how chess notation was supposed to work
     def processInput(self, userInput):
         def mainCode(midNum, targetPiece, isSpace): # Number at the middle, the piece that should be at the start, if there should be a space at the end
             try:

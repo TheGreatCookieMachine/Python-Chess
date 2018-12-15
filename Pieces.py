@@ -38,17 +38,37 @@ class Rook(Piece):
         super().__init__(side)
         self.title = "Rook"
 
-    # Temporary pawn movement
     def availableMoves(self, row, column, board):
         moves = []
-        # Checks if an oppenent is in front of the pawn, if not it can move there
-        if board[row + 1][column] == " ":
-            moves.append([row + 1, column])
-        # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
-            moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
-            moves.append([row + 1, column + 1])
+        tempColumn = column
+        for i in range(-1, 2, 2):
+            tempRow = row
+            while True:
+                tempRow = tempRow + i
+                try:
+                    board[tempRow][column]
+                except:
+                    break
+                else:
+                    if board[tempRow][column] != " ":
+                        if board[tempRow][column].side != board[row][column].side:
+                            moves.append([tempRow, column])
+                        break
+                moves.append([tempRow, column])
+        for i in range(-1, 2, 2):
+            tempColumn = column
+            while True:
+                tempColumn = tempColumn + i
+                try:
+                    board[row][tempColumn]
+                except:
+                    break
+                else:
+                    if board[row][tempColumn] != " ":
+                        if board[row][tempColumn].side != board[row][column].side:
+                            moves.append([row, tempColumn])
+                        break
+                moves.append([row, tempColumn])
         return moves
 
 class Knight(Piece):
