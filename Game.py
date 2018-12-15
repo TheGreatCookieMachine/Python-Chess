@@ -1,5 +1,6 @@
 import random
 import Pieces
+import InputProcessor
 
 class Game():
     def __init__(self):
@@ -71,11 +72,11 @@ class Game():
     
     def playerTurn(self):
         while True:
-            move = input("Please enter your turn: ")
-            move = self.processInput(move)
+            userInput = InputProcessor.InputProcessor(input("Please enter your turn: "))
+            move = userInput.ProcessInput(self.board)
             if move[0] == True:
-                self.board[move[1]][move[2]] = self.board[move[3]][move[4]] # Replacing the end of move with the starting piece
-                self.board[move[3]][move[4]] = " " # Clears the starting position
+                self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
+                self.board[move[1]][move[2]] = " " # Clears the starting position
                 break
             else:
                 print("Error: Invalid Move")

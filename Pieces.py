@@ -94,17 +94,41 @@ class Bishop(Piece):
         super().__init__(side)
         self.title = "Bishop"
     
-    # Temporary pawn movement
     def availableMoves(self, row, column, board):
         moves = []
-        # Checks if an oppenent is in front of the pawn, if not it can move there
-        if board[row + 1][column] == " ":
-            moves.append([row + 1, column])
-        # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " " and board[row + 1][ column - 1].side != board[row][column].side:
-            moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " " and board[row + 1][ column + 1].side != board[row][column].side:
-            moves.append([row + 1, column + 1])
+        tempColumn = column
+        for i in range(-1, 2, 2):
+            tempRow = row
+            tempColumn = column
+            while True:
+                tempRow = tempRow + i
+                tempColumn = tempColumn + i
+                try:
+                    board[tempRow][tempColumn]
+                except:
+                    break
+                else:
+                    if board[tempRow][tempColumn] != " ":
+                        if board[tempRow][tempColumn].side != board[row][column].side:
+                            moves.append([tempRow, tempColumn])
+                        break
+                moves.append([tempRow, tempColumn])
+        for i in range(-1, 2, 2):
+            tempRow = row
+            tempColumn = column
+            while True:
+                tempRow = tempRow - i
+                tempColumn = tempColumn + i
+                try:
+                    board[tempRow][tempColumn]
+                except:
+                    break
+                else:
+                    if board[tempRow][tempColumn] != " ":
+                        if board[tempRow][tempColumn].side != board[row][column].side:
+                            moves.append([tempRow, tempColumn])
+                        break
+                moves.append([tempRow, tempColumn])
         return moves
 
 class King(Piece):
