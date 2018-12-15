@@ -40,7 +40,6 @@ class Rook(Piece):
 
     def availableMoves(self, row, column, board):
         moves = []
-        tempColumn = column
         for i in range(-1, 2, 2):
             tempRow = row
             while True:
@@ -96,7 +95,6 @@ class Bishop(Piece):
     
     def availableMoves(self, row, column, board):
         moves = []
-        tempColumn = column
         for i in range(-1, 2, 2):
             tempRow = row
             tempColumn = column
