@@ -1,6 +1,6 @@
 import random
-import Pieces
-import InputProcessor
+import Game.Pieces as Pieces
+import InputOutput.InputProcessor as InputProcessor
 
 class Game():
     def __init__(self):

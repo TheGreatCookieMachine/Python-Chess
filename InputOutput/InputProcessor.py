@@ -32,7 +32,8 @@ class InputProcessor():
                 try:
                     location = [int(self.inputToProcess[1]) - 1, ord(self.inputToProcess[0].lower()) - 97, 
                                 int(self.inputToProcess[3]) - 1, ord(self.inputToProcess[2].lower()) - 97]
-                    if (board[location[0]][location[1]] == board[location[2]][location[3]] or
+                    if (-1 in location or
+                        board[location[0]][location[1]] == board[location[2]][location[3]] or
                         (board[location[2]][location[3]] != " " and
                          board[location[0]][location[1]].side == board[location[2]][location[3]].side) or
                         not location[2:] in board[location[0]][location[1]].availableMoves(location[0], location[1], board)):

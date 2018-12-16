@@ -1,4 +1,4 @@
-import Game
+import Game.Game as Game
 
 class Main():
     def __init__(self):
