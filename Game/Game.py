@@ -76,6 +76,7 @@ class Game():
             move = userInput.ProcessInput(self.board)
             if move[0] == True:
                 self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
+                self.board[move[3]][move[4]].hasMoved = True
                 self.board[move[1]][move[2]] = " " # Clears the starting position
                 break
             else:
