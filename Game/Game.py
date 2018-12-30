@@ -28,15 +28,6 @@ class Game():
                   " | " + str(self.board[i][4]) + " | " + str(self.board[i][5]) + " | " + str(self.board[i][6]) + " | " + str(self.board[i][7]) + " |")
             print("---------------------------------")
     
-    # Takes input such as e5 or a1 and turns it into a list which is usable for finding locations on the board
-    def getLocation(self, baseLocation):
-        if ord(baseLocation[0].lower()) > 96 and ord(baseLocation[0].lower()) < 105:
-            try:
-                return [int(baseLocation[1]) - 1, ord(baseLocation[0].lower()) - 97]
-            except:
-                pass
-        return [-1, -1] # [-1, -1] is used as a way to tell the rest of the code that there was an invalid input, since [-1, -1] is not achievable through a valid input
-    
     def playerTurn(self):
         while True:
             userInput = InputProcessor.InputProcessor(input("Please enter your turn: "))
