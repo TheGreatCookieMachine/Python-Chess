@@ -7,7 +7,7 @@ class InputProcessor():
         self.checkMate = False
         self.capture = False
     
-    def ProcessInput(self, board):
+    def processInput(self, board):
         #if self.chessNotation == "algebraic":
         #    # Special case checks
         #    if self.inputToProcess[len(self.inputToProcess) - 1] == "+":

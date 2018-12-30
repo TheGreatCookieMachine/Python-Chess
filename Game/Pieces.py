@@ -26,28 +26,24 @@ class Piece():
                 for n in range(1, moveAmount):
                     tempRow = tempRow + i
                     try:
-                        board[tempRow][column]
-                    except:
-                        break
-                    else:
                         if board[tempRow][column] != " ":
                             if board[tempRow][column].side != board[row][column].side:
                                 moves.append([tempRow, column])
                             break
+                    except:
+                        break
                     moves.append([tempRow, column])
             for i in range(-1, 2, 2):
                 tempColumn = column
                 for n in range(1, moveAmount):
                     tempColumn = tempColumn + i
                     try:
-                        board[row][tempColumn]
-                    except:
-                        break
-                    else:
                         if board[row][tempColumn] != " ":
                             if board[row][tempColumn].side != board[row][column].side:
                                 moves.append([row, tempColumn])
                             break
+                    except:
+                        break
                     moves.append([row, tempColumn])
         if isDiagonal:
             for i in range(-1, 2, 2):
@@ -57,14 +53,12 @@ class Piece():
                     tempRow = tempRow + i
                     tempColumn = tempColumn + i
                     try:
-                        board[tempRow][tempColumn]
-                    except:
-                        break
-                    else:
                         if board[tempRow][tempColumn] != " ":
                             if board[tempRow][tempColumn].side != board[row][column].side:
                                 moves.append([tempRow, tempColumn])
                             break
+                    except:
+                        break
                     moves.append([tempRow, tempColumn])
             for i in range(-1, 2, 2):
                 tempRow = row
@@ -73,14 +67,12 @@ class Piece():
                     tempRow = tempRow - i
                     tempColumn = tempColumn + i
                     try:
-                        board[tempRow][tempColumn]
-                    except:
-                        break
-                    else:
                         if board[tempRow][tempColumn] != " ":
                             if board[tempRow][tempColumn].side != board[row][column].side:
                                 moves.append([tempRow, tempColumn])
                             break
+                    except:
+                        break
                     moves.append([tempRow, tempColumn])
         return moves
 
