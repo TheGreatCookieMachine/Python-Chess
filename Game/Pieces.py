@@ -120,14 +120,24 @@ class Knight(Piece):
     # Temporary pawn movement
     def availableMoves(self, row, column, board):
         moves = []
-        # Checks if an oppenent is in front of the pawn, if not it can move there
-        if board[row + 1][column] == " ":
-            moves.append([row + 1, column])
-        # Checks if an oppenent is diagonal to the pawn, if so it can move there
-        if board[row + 1][column - 1] != " " and board[row + 1][column - 1].side != board[row][column].side:
-            moves.append([row + 1, column - 1])
-        if board[row + 1][column + 1] != " " and board[row + 1][column + 1].side != board[row][column].side:
-            moves.append([row + 1, column + 1])
+        for vertical in range(-2, 3, 4):
+            for horizontal in range(-1, 2, 2):
+                tempColumn = column + vertical
+                tempRow = row + horizontal
+                try:
+                    if board[tempRow][tempColumn] == " " or board[tempRow][tempColumn].side != self.side:
+                        moves.append([tempRow, tempColumn])
+                except:
+                    pass
+        for vertical in range(-1, 2, 2):
+            for horizontal in range(-2, 3, 4):
+                tempColumn = column + vertical
+                tempRow = row + horizontal
+                try:
+                    if board[tempRow][tempColumn] == " " or board[tempRow][tempColumn].side != self.side:
+                        moves.append([tempRow, tempColumn])
+                except:
+                    pass
         return moves
 
 class Bishop(Piece):
