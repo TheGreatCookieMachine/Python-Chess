@@ -74,6 +74,11 @@ class Piece():
                     except:
                         break
                     moves.append([tempRow, tempColumn])
+        tempMoves = moves
+        moves = []
+        for i in range(len(tempMoves)):
+            if not any(move < 0 for move in tempMoves[i]):
+                moves.append(tempMoves[i])
         return moves
 
 class Pawn(Piece):
@@ -138,6 +143,11 @@ class Knight(Piece):
                         moves.append([tempRow, tempColumn])
                 except:
                     pass
+        tempMoves = moves
+        moves = []
+        for i in range(len(tempMoves)):
+            if not any(move < 0 for move in tempMoves[i]):
+                moves.append(tempMoves[i])
         return moves
 
 class Bishop(Piece):
