@@ -1,4 +1,5 @@
 import random
+import copy
 import Game.Pieces as Pieces
 import InputOutput.InputProcessor as InputProcessor
 
@@ -28,11 +29,29 @@ class Game():
                   " | " + str(self.board[i][4]) + " | " + str(self.board[i][5]) + " | " + str(self.board[i][6]) + " | " + str(self.board[i][7]) + " |")
             print("---------------------------------")
     
+    def isCheck(self, board):
+        for i in range(len(board)):
+            for n in range(len(board[i])):
+                if type(board[i][n]) == Pieces.King:
+                    kingPosition = [i, n]
+        for i in range(len(board)):
+            for n in range(len(board[i])):
+                if board[i][n] != " " and type(board[i][n]) != Pieces.King:
+                    moves = board[i][n].availableMoves(i, n, board)
+                    if kingPosition in moves:
+                        return True
+        return False
+    
     def playerTurn(self):
         while True:
             userInput = InputProcessor.InputProcessor(input("Please enter your turn: "))
             move = userInput.processInput(self.board)
             if move[0] == True:
+                boardCopy = copy.deepcopy(self.board)
+                boardCopy[move[3]][move[4]] = boardCopy[move[1]][move[2]] # Replacing the end of move with the starting piece
+                boardCopy[move[1]][move[2]] = " " # Clears the starting position
+                if self.isCheck(boardCopy):
+                    print("Check")
                 self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
                 self.board[move[3]][move[4]].hasMoved = True
                 self.board[move[1]][move[2]] = " " # Clears the starting position
