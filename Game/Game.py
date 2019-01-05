@@ -35,11 +35,11 @@ class Game():
         for i in range(len(board)):
             for n in range(len(board[i])):
                 if type(board[i][n]) == piece and side != None and board[i][n].side == side:
-                    piecePosition.extend([i, n])
+                    piecePosition.append([i, n])
         return piecePosition
 
     def isCheck(self, board, side):
-        kingPosition = self.getPiecePosition(board, Pieces.King, side)
+        kingPosition = self.getPiecePosition(board, Pieces.King, side)[0] # Only one king per side is possible, as such we can simply take the first item of the list
         for i in range(len(board)):
             for n in range(len(board[i])):
                 if board[i][n] != " " and type(board[i][n]) != Pieces.King:
