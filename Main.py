@@ -5,13 +5,22 @@ class Main():
         self.running = True
     
     def startUp(self):
-        return
-    
-    def mainLoop(self):
-        return
+        self.session = Game.Game()
+        self.mainLoop()
 
-# Here for testing purposes, will be changed and moved into Main() later
-session = Game.Game()
-while True:
-    session.drawBoard()
-    session.playerTurn()
+    def mainLoop(self):
+        while True:
+            if self.session.turn == self.session.player:
+                self.session.drawBoard()
+                print("Player's turn")
+                self.session.playerTurn()
+                self.session.turn = self.session.computer
+            # Temporarily does player turn until AI is added
+            if self.session.turn == self.session.computer:
+                self.session.drawBoard()
+                print("Computer's turn")
+                self.session.playerTurn()
+                self.session.turn = self.session.player
+
+main = Main()
+main.startUp()

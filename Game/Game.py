@@ -5,6 +5,7 @@ import InputOutput.InputProcessor as InputProcessor
 
 class Game():
     def __init__(self):
+        self.turn = "white"
         self.player = "white" if random.randint(0, 1) == 1 else "black" # Temporary way of choosing side until player choice is given
         self.computer = "white" if self.player == "black" else "black"
         self.board = [[Pieces.Rook("white"), Pieces.Knight("white"), Pieces.Bishop("white"), Pieces.King("white"),
@@ -29,11 +30,16 @@ class Game():
                   " | " + str(self.board[i][4]) + " | " + str(self.board[i][5]) + " | " + str(self.board[i][6]) + " | " + str(self.board[i][7]) + " |")
             print("---------------------------------")
     
-    def isCheck(self, board):
+    def getPiecePosition(self, board, piece, side=None):
+        piecePosition = []
         for i in range(len(board)):
             for n in range(len(board[i])):
-                if type(board[i][n]) == Pieces.King:
-                    kingPosition = [i, n]
+                if type(board[i][n]) == piece and side != None and board[i][n].side == side:
+                    piecePosition.extend([i, n])
+        return piecePosition
+
+    def isCheck(self, board, side):
+        kingPosition = self.getPiecePosition(board, Pieces.King, side)
         for i in range(len(board)):
             for n in range(len(board[i])):
                 if board[i][n] != " " and type(board[i][n]) != Pieces.King:
@@ -50,11 +56,14 @@ class Game():
                 boardCopy = copy.deepcopy(self.board)
                 boardCopy[move[3]][move[4]] = boardCopy[move[1]][move[2]] # Replacing the end of move with the starting piece
                 boardCopy[move[1]][move[2]] = " " # Clears the starting position
-                if self.isCheck(boardCopy):
-                    print("Check")
-                self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
-                self.board[move[3]][move[4]].hasMoved = True
-                self.board[move[1]][move[2]] = " " # Clears the starting position
-                break
+                if self.isCheck(boardCopy, self.player):
+                    print("You may not put yourself into check")
+                else:
+                    if self.isCheck(boardCopy, self.computer):
+                        print("Computer is in check")
+                    self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
+                    self.board[move[3]][move[4]].hasMoved = True
+                    self.board[move[1]][move[2]] = " " # Clears the starting position
+                    break
             else:
                 print("Error: Invalid Move")
