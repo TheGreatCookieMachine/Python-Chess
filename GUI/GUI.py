@@ -13,8 +13,3 @@ class GUI():
     
     def printScreen(self):
         self.frames[self.currentFrame].printScreen()
-
-if __name__ == "__main__":
-    gui = GUI()
-    gui.printScreen()
-    gui.root.mainloop()
