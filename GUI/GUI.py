@@ -1,5 +1,5 @@
 import tkinter
-import Board
+import GUI.Board as Board
 
 class GUI():
     def __init__(self):

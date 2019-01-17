@@ -1,26 +1,10 @@
-import Game.Game as Game
+import GUI.GUI as GUI
 
 class Main():
     def __init__(self):
-        self.running = True
-    
-    def startUp(self):
-        self.session = Game.Game()
-        self.mainLoop()
+        self.gui = GUI.GUI()
+        self.gui.printScreen()
 
-    def mainLoop(self):
-        while True:
-            if self.session.turn == self.session.player:
-                self.session.drawBoard()
-                print("Player's turn")
-                self.session.playerTurn()
-                self.session.turn = self.session.computer
-            # Temporarily does player turn until AI is added
-            if self.session.turn == self.session.computer:
-                self.session.drawBoard()
-                print("Computer's turn")
-                self.session.playerTurn()
-                self.session.turn = self.session.player
-
-main = Main()
-main.startUp()
+if __name__ == "__main__":
+    main = Main()
+    main.gui.root.mainloop()

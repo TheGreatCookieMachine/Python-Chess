@@ -1,10 +1,12 @@
 import tkinter
+import Game.Game as Game
 
 class Board():
     def __init__(self):
         self.moves = tkinter.StringVar()
+        self.error = tkinter.StringVar()
         
-        self.boardImage = tkinter.PhotoImage(file="ChessBoard.gif")
+        self.boardImage = tkinter.PhotoImage(file="GUI\\ChessBoard.gif")
         self.boardLabel = tkinter.Label(image=self.boardImage, borderwidth=1, relief="solid")
 
         self.moveLogLabelFrame = tkinter.LabelFrame(height=325, width=175, borderwidth=1, relief="solid")
@@ -15,7 +17,9 @@ class Board():
         self.inputLabel.bind("<Return>", self.takeInput)
 
         self.errorLogLabelFrame = tkinter.LabelFrame(height=25, width=175, borderwidth=1, relief="solid")
-        self.errorLogLabel = tkinter.Label(self.errorLogLabelFrame, text="Error: Error Example", font=("Calbri", 11), anchor="nw")
+        self.errorLogLabel = tkinter.Label(self.errorLogLabelFrame, textvariable=self.error, font=("Calbri", 11), anchor="nw")
+
+        self.session = Game.Game()
     
     def printScreen(self):
         self.boardLabel.place(x=24, y=24)
@@ -32,4 +36,9 @@ class Board():
     def takeInput(self, event):
         userInput = self.inputLabel.get()
         self.inputLabel.delete(0, "end")
-        self.moves.set(self.moves.get() + userInput + "\n")
+        validMove = self.session.playerTurn(userInput)
+        if validMove:
+            self.moves.set(self.moves.get() + userInput + "\n")
+            self.error.set("")
+        else:
+            self.error.set("Error: Invalid Move")

@@ -48,22 +48,21 @@ class Game():
                         return True
         return False
     
-    def playerTurn(self):
-        while True:
-            userInput = InputProcessor.InputProcessor(input("Please enter your turn: "))
-            move = userInput.processInput(self.board)
-            if move[0] == True:
-                boardCopy = copy.deepcopy(self.board)
-                boardCopy[move[3]][move[4]] = boardCopy[move[1]][move[2]] # Replacing the end of move with the starting piece
-                boardCopy[move[1]][move[2]] = " " # Clears the starting position
-                if self.isCheck(boardCopy, self.player):
-                    print("You may not put yourself into check")
-                else:
-                    if self.isCheck(boardCopy, self.computer):
-                        print("Computer is in check")
-                    self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
-                    self.board[move[3]][move[4]].hasMoved = True
-                    self.board[move[1]][move[2]] = " " # Clears the starting position
-                    break
+    def playerTurn(self, userInput):
+        userInput = InputProcessor.InputProcessor(userInput)
+        move = userInput.processInput(self.board)
+        if move[0] == True:
+            boardCopy = copy.deepcopy(self.board)
+            boardCopy[move[3]][move[4]] = boardCopy[move[1]][move[2]] # Replacing the end of move with the starting piece
+            boardCopy[move[1]][move[2]] = " " # Clears the starting position
+            if self.isCheck(boardCopy, self.player):
+                return False
             else:
-                print("Error: Invalid Move")
+                if self.isCheck(boardCopy, self.computer):
+                    print("Computer is in check")
+                self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
+                self.board[move[3]][move[4]].hasMoved = True
+                self.board[move[1]][move[2]] = " " # Clears the starting position
+                return True
+        else:
+            return False
