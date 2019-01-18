@@ -74,7 +74,7 @@ class Piece():
                     except:
                         break
                     moves.append([tempRow, tempColumn])
-        tempMoves = moves
+        tempMoves = list(moves)
         moves = []
         for i in range(len(tempMoves)):
             if not any(move < 0 for move in tempMoves[i]):
@@ -113,9 +113,7 @@ class Rook(Piece):
         self.title = "Rook"
 
     def availableMoves(self, row, column, board):
-        moves = []
-        moves = self.normativeAvailableMoves(row, column, board, False, True, 7)
-        return moves
+        return self.normativeAvailableMoves(row, column, board, False, True, 7)
 
 class Knight(Piece):
     def __init__(self, side):
@@ -143,7 +141,7 @@ class Knight(Piece):
                         moves.append([tempRow, tempColumn])
                 except:
                     pass
-        tempMoves = moves
+        tempMoves = list(moves)
         moves = []
         for i in range(len(tempMoves)):
             if not any(move < 0 for move in tempMoves[i]):
@@ -156,9 +154,7 @@ class Bishop(Piece):
         self.title = "Bishop"
     
     def availableMoves(self, row, column, board):
-        moves = []
-        moves = self.normativeAvailableMoves(row, column, board, True, False, 7)
-        return moves
+        return self.normativeAvailableMoves(row, column, board, True, False, 7)
 
 class King(Piece):
     def __init__(self, side):
@@ -167,9 +163,7 @@ class King(Piece):
     
     # Temporary pawn movement
     def availableMoves(self, row, column, board):
-        moves = []
-        moves = self.normativeAvailableMoves(row, column, board, True, True, 1)
-        return moves
+        return self.normativeAvailableMoves(row, column, board, True, True, 1)
 
 class Queen(Piece):
     def __init__(self, side):
@@ -178,6 +172,4 @@ class Queen(Piece):
     
     # Temporary pawn movement
     def availableMoves(self, row, column, board):
-        moves = []
-        moves = self.normativeAvailableMoves(row, column, board, True, True, 7)
-        return moves
+        return self.normativeAvailableMoves(row, column, board, True, True, 7)
