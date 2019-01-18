@@ -42,8 +42,7 @@ class Board():
             for row in range(len(self.session.board[column])):
                 if self.session.board[column][row] != " ":
                     piece = self.session.board[column][row]
-                    filePath = "GUI\\Assests\\" + str(piece.side.capitalize()) + str(piece.title) + ".gif"
-                    image = tkinter.PhotoImage(file=filePath)
+                    image = tkinter.PhotoImage(file="GUI\\Assests\\" + str(piece.side.capitalize()) + str(piece.title) + ".gif")
                     label = tkinter.Label(self.boardLabel, image=image)
                     label.image = image
                     self.pieces.append(label)
