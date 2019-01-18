@@ -8,8 +8,8 @@ class Game():
         self.turn = "white"
         self.player = "white" if random.randint(0, 1) == 1 else "black" # Temporary way of choosing side until player choice is given
         self.computer = "white" if self.player == "black" else "black"
-        self.board = [[Pieces.Rook("white"), Pieces.Knight("white"), Pieces.Bishop("white"), Pieces.King("white"),
-                      Pieces.Queen("white"), Pieces.Bishop("white"), Pieces.Knight("white"), Pieces.Rook("white")],
+        self.board = [[Pieces.Rook("white"), Pieces.Knight("white"), Pieces.Bishop("white"), Pieces.Queen("white"),
+                      Pieces.King("white"), Pieces.Bishop("white"), Pieces.Knight("white"), Pieces.Rook("white")],
                       [Pieces.Pawn("white"), Pieces.Pawn("white"), Pieces.Pawn("white"), Pieces.Pawn("white"),
                       Pieces.Pawn("white"), Pieces.Pawn("white"), Pieces.Pawn("white"), Pieces.Pawn("white")],
                       [" ", " ", " ", " ", " ", " ", " ", " "],
@@ -18,8 +18,8 @@ class Game():
                       [" ", " ", " ", " ", " ", " ", " ", " "],
                       [Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black"),
                       Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black")],
-                      [Pieces.Rook("black"), Pieces.Knight("black"), Pieces.Bishop("black"), Pieces.King("black"),
-                      Pieces.Queen("black"), Pieces.Bishop("black"), Pieces.Knight("black"), Pieces.Rook("black")]]
+                      [Pieces.Rook("black"), Pieces.Knight("black"), Pieces.Bishop("black"), Pieces.Queen("black"),
+                      Pieces.King("black"), Pieces.Bishop("black"), Pieces.Knight("black"), Pieces.Rook("black")]]
         self.pieces = {"r": "Rook", "n": "Knight", "b": "Bishop", "q": "Queen", "k": "King"}
     
     def drawBoard(self):

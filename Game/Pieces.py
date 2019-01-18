@@ -90,8 +90,11 @@ class Pawn(Piece):
         moves = []
         rowMovement = 1 if self.side == "white" else -1
         # Checks if an oppenent is in front of the pawn, if not it can move there
-        if board[row + rowMovement][column] == " ":
-            moves.append([row + rowMovement, column])
+        try:
+            if board[row + rowMovement][column] == " ":
+                moves.append([row + rowMovement, column])
+        except:
+            pass
         if not self.hasMoved and board[row + (rowMovement + rowMovement)][column] == " ":
             moves.append([row + (rowMovement + rowMovement), column])
         # Checks if an oppenent is diagonal to the pawn, if so it can move there
