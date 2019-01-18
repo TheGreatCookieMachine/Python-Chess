@@ -35,6 +35,9 @@ class Board():
         self.errorLogLabelFrame.place(x=450, y=400)
         self.errorLogLabel.place(x=0, y=0)
 
+        self.updateBoard()
+
+    def updateBoard(self):
         for label in self.pieces:
             label.destroy()
         self.pieces = []
@@ -55,6 +58,6 @@ class Board():
         if validMove:
             self.moves.set(self.moves.get() + userInput + "\n")
             self.error.set("")
-            self.printScreen()
+            self.updateBoard()
         else:
             self.error.set("Error: Invalid Move")
