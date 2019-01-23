@@ -10,7 +10,7 @@ class Board():
         
         self.boardCanvas = tkinter.Canvas(height=400, width=400, borderwidth=1, relief="solid")
         self.boardImage = tkinter.PhotoImage(file="GUI\\Assests\\ChessBoard.gif")
-        self.boardCanvas.create_image(0, 0, image=self.boardImage, anchor="nw")
+        self.boardCanvas.create_image(3, 3, image=self.boardImage, anchor="nw")
         
         self.moveLogLabelFrame = tkinter.LabelFrame(height=325, width=175, borderwidth=1, relief="solid")
         self.moveLogLabel = tkinter.Label(self.moveLogLabelFrame, textvariable=self.moves, font=("Calbri", 11), anchor="nw", justify="left", wraplength=175)
@@ -39,8 +39,6 @@ class Board():
         self.updateBoard()
 
     def updateBoard(self):
-        self.boardCanvas.delete("all")
-        self.boardCanvas.create_image(3, 3, image=self.boardImage, anchor="nw")
         self.pieces = []
         for column in range(len(self.session.board)):
             for row in range(len(self.session.board[column])):
@@ -52,11 +50,12 @@ class Board():
     
     def takeInput(self, event):
         userInput = self.inputLabel.get()
-        self.inputLabel.delete(0, "end")
-        validMove = self.session.playerTurn(userInput)
-        if validMove:
-            self.moves.set(self.moves.get() + userInput + "\n")
-            self.error.set("")
-            self.updateBoard()
-        else:
-            self.error.set("Error: Invalid Move")
+        if len(userInput) > 0:
+            self.inputLabel.delete(0, "end")
+            validMove = self.session.playerTurn(userInput)
+            if validMove:
+                self.moves.set(self.moves.get() + userInput + "\n")
+                self.error.set("")
+                self.updateBoard()
+            else:
+                self.error.set("Error: Invalid Move")
