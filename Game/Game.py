@@ -20,7 +20,7 @@ class Game():
                       Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black"), Pieces.Pawn("black")],
                       [Pieces.Rook("black"), Pieces.Knight("black"), Pieces.Bishop("black"), Pieces.Queen("black"),
                       Pieces.King("black"), Pieces.Bishop("black"), Pieces.Knight("black"), Pieces.Rook("black")]]
-        self.pieces = {"r": "Rook", "n": "Knight", "b": "Bishop", "q": "Queen", "k": "King"}
+        self.pieces = {"r": Pieces.Rook, "n": Pieces.Knight, "b": Pieces.Bishop, "q": Pieces.Queen, "k": Pieces.King}
     
     def drawBoard(self):
         print("---------------------------------")
@@ -55,6 +55,9 @@ class Game():
             boardCopy = copy.deepcopy(self.board)
             boardCopy[move[3]][move[4]] = boardCopy[move[1]][move[2]] # Replacing the end of move with the starting piece
             boardCopy[move[1]][move[2]] = " " # Clears the starting position
+            if len(move) == 6:
+                boardCopy[move[3]][move[4]] = self.pieces[move[5]](boardCopy[move[3]][move[4]].side)
+                boardCopy[move[3]][move[4]].hasMoved = True
             if self.isCheck(boardCopy, self.player):
                 return False
             else:
@@ -63,6 +66,9 @@ class Game():
                 self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
                 self.board[move[3]][move[4]].hasMoved = True
                 self.board[move[1]][move[2]] = " " # Clears the starting position
+                if len(move) == 6:
+                    self.board[move[3]][move[4]] = self.pieces[move[5]](self.board[move[3]][move[4]].side)
+                    self.board[move[3]][move[4]].hasMoved = True
                 return True
         else:
             return False
