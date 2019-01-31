@@ -85,6 +85,7 @@ class Pawn(Piece):
     def __init__(self, side):
         super().__init__(side)
         self.title = "Pawn"
+        self.validPromotions = ("r", "n", "b", "q")
     
     def availableMoves(self, row, column, board):
         moves = []
@@ -108,6 +109,15 @@ class Pawn(Piece):
                 moves.append([row + rowMovement, column + 1])
         except:
             pass
+
+        tempMoves = list(moves)
+        moves = []
+        for move in tempMoves:
+            if move[0] == 0 or move[0] == 7:
+                for piece in self.validPromotions:
+                    moves.append(move + [piece])
+        moves.extend(tempMoves)
+
         return moves
 
 class Rook(Piece):

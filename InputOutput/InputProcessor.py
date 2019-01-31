@@ -22,9 +22,7 @@ class InputProcessor():
                     if (board[location[0]][location[1]] == board[location[2]][location[3]] or
                         (board[location[2]][location[3]] != " " and
                          board[location[0]][location[1]].side == board[location[2]][location[3]].side) or
-                        not location[2:4] in board[location[0]][location[1]].availableMoves(location[0], location[1], board) or
-                        (len(location) == 5 and not (location[4] != "p" and location[4] != "k" and location[4] in self.pieceAbbreviations and
-                         board[location[0]][location[1]].title == "Pawn" and (location[2] == 0 or location[2] == 7)))):
+                        not location[2:] in board[location[0]][location[1]].availableMoves(location[0], location[1], board)):
                         return [False, -1, -1, -1, -1]
                 except:
                     return [False, -1, -1, -1, -1]
