@@ -133,7 +133,6 @@ class Knight(Piece):
         super().__init__(side)
         self.title = "Knight"
     
-    # Temporary pawn movement
     def availableMoves(self, row, column, board):
         moves = []
         for vertical in range(-2, 3, 4):
@@ -174,7 +173,6 @@ class King(Piece):
         super().__init__(side)
         self.title = "King"
     
-    # Temporary pawn movement
     def availableMoves(self, row, column, board):
         return self.normativeAvailableMoves(row, column, board, True, True, 1)
 
@@ -183,6 +181,5 @@ class Queen(Piece):
         super().__init__(side)
         self.title = "Queen"
     
-    # Temporary pawn movement
     def availableMoves(self, row, column, board):
         return self.normativeAvailableMoves(row, column, board, True, True, 7)

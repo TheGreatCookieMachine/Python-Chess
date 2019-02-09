@@ -22,13 +22,13 @@ class Game():
                       Pieces.King("black"), Pieces.Bishop("black"), Pieces.Knight("black"), Pieces.Rook("black")]]
         self.pieces = {"r": Pieces.Rook, "n": Pieces.Knight, "b": Pieces.Bishop, "q": Pieces.Queen, "k": Pieces.King}
     
-    def drawBoard(self):
-        print("---------------------------------")
-        # Technically breaks PEP 8, however only by a little, and this is with splitting the line in two
-        for i in range(7, -1, -1):
-            print("| " + str(self.board[i][0]) + " | " + str(self.board[i][1]) + " | " + str(self.board[i][2]) + " | " + str(self.board[i][3]) +
-                  " | " + str(self.board[i][4]) + " | " + str(self.board[i][5]) + " | " + str(self.board[i][6]) + " | " + str(self.board[i][7]) + " |")
-            print("---------------------------------")
+    def executeMove(self, board, move):
+        board[move[3]][move[4]] = board[move[1]][move[2]] # Replacing the end of move with the starting piece
+        board[move[3]][move[4]].hasMoved = True
+        board[move[1]][move[2]] = " " # Clears the starting position
+        if len(move) == 6:
+            board[move[3]][move[4]] = self.pieces[move[5]](board[move[3]][move[4]].side)
+            board[move[3]][move[4]].hasMoved = True
     
     def getPiecePosition(self, board, piece, side=None):
         piecePosition = []
@@ -53,22 +53,13 @@ class Game():
         move = userInput.processInput(self.board)
         if move[0] == True:
             boardCopy = copy.deepcopy(self.board)
-            boardCopy[move[3]][move[4]] = boardCopy[move[1]][move[2]] # Replacing the end of move with the starting piece
-            boardCopy[move[1]][move[2]] = " " # Clears the starting position
-            if len(move) == 6:
-                boardCopy[move[3]][move[4]] = self.pieces[move[5]](boardCopy[move[3]][move[4]].side)
-                boardCopy[move[3]][move[4]].hasMoved = True
+            self.executeMove(boardCopy, move)
             if self.isCheck(boardCopy, self.player):
                 return False
             else:
                 if self.isCheck(boardCopy, self.computer):
                     print("Computer is in check")
-                self.board[move[3]][move[4]] = self.board[move[1]][move[2]] # Replacing the end of move with the starting piece
-                self.board[move[3]][move[4]].hasMoved = True
-                self.board[move[1]][move[2]] = " " # Clears the starting position
-                if len(move) == 6:
-                    self.board[move[3]][move[4]] = self.pieces[move[5]](self.board[move[3]][move[4]].side)
-                    self.board[move[3]][move[4]].hasMoved = True
+                self.executeMove(self.board, move)
                 return True
         else:
             return False
