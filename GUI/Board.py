@@ -52,7 +52,16 @@ class Board():
         userInput = self.inputLabel.get()
         if len(userInput) > 0:
             self.inputLabel.delete(0, "end")
-            validMove = self.session.playerTurn(userInput)
+            # Temporary turn rotation fix until AI is added
+            if self.session.turn == self.session.player:
+                validMove = self.session.playerTurn(userInput)
+                if validMove:
+                    self.session.turn = self.session.computer
+            else:
+                validMove = self.session.computerTurn(userInput)
+                if validMove:
+                    self.session.turn = self.session.player
+            
             if validMove:
                 self.moves.set(self.moves.get() + userInput + "\n")
                 self.error.set("")

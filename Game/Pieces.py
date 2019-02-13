@@ -172,9 +172,34 @@ class King(Piece):
     def __init__(self, side):
         super().__init__(side)
         self.title = "King"
+        self.check = False
     
+    def positionAttackable(self, row, column, board): # Used for castling
+        position = [row, column]
+        for i in range(len(board)):
+            for n in range(len(board[i])):
+                if board[i][n] != " " and board[row][column] != " " and board[i][n].side != board[row][column].side:
+                    moves = board[i][n].availableMoves(i, n, board)
+                    if position in moves:
+                        return True
+        return False
+
     def availableMoves(self, row, column, board):
-        return self.normativeAvailableMoves(row, column, board, True, True, 1)
+        moves = self.normativeAvailableMoves(row, column, board, True, True, 1)
+
+        # Castling
+        neededRow = 0 if self.side == "white" else 7
+        if row == neededRow and column == 4 and not board[row][column].hasMoved and board[row][column].check == False:
+            if (type(board[row][7]) == Rook and not board[row][7].hasMoved and
+               board[row][column + 1] == " " and board[row][column + 2] == " " and
+               not self.positionAttackable(row, column + 1, board) and not self.positionAttackable(row, column + 2, board)):
+                moves.append(["kingside"])
+            if (type(board[row][0]) == Rook and not board[row][0].hasMoved and
+               board[row][column - 1] == " " and board[row][column - 2] == " " and board[row][column - 3] == " " and
+               not self.positionAttackable(row, column - 1, board) and not self.positionAttackable(row, column - 2, board)):
+                moves.append(["queenside"])
+        
+        return moves
 
 class Queen(Piece):
     def __init__(self, side):

@@ -4,14 +4,18 @@ class InputProcessor():
         self.chessNotation = chessNotation
         self.pieceAbbreviations = ("p", "r", "n", "b", "k", "q")
     
-    def processInput(self, board):
+    def processInput(self, board, side):
         # Heavily simplified chess notation, simply includes the beginning and ending spots of the move. Castles are still 0-0 or O-O
         if self.chessNotation == "simplified":
             # Castling not implemented yet
             if self.inputToProcess == "0-0" or self.inputToProcess == "O-O":
-                pass
+                kingRow = 0 if side == "white" else 7
+                if board[kingRow][4] != " " and ["kingside"] in board[kingRow][4].availableMoves(kingRow, 4, board):
+                    return [True, "kingside"]
             elif self.inputToProcess == "0-0-0" or self.inputToProcess == "O-O-O":
-                pass
+                kingRow = 0 if side == "white" else 7
+                if board[kingRow][4] != " " and ["queenside"] in board[kingRow][4].availableMoves(kingRow, 4, board):
+                    return [True, "queenside"]
             elif len(self.inputToProcess) == 4 or len(self.inputToProcess) == 5:
                 try:
                     location = [int(self.inputToProcess[1]) - 1, ord(self.inputToProcess[0].lower()) - 97, 
